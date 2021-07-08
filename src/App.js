@@ -6,7 +6,7 @@ import "./App.css";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import Navigation from "./components/Navigation/Navigation";
 import Signin from "./components/Signin/Signin";
-// import Register from './components/Register/Register';
+import Register from "./components/Register/Register";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
 
@@ -72,16 +72,14 @@ function App() {
 
   const onRouteChange = (route) => {
     setRoute(route);
-  }
+  };
 
   return (
     <div className="App">
       <Particles className="particles" params={particlesOptions} />
 
-      <Navigation onRouteChange={onRouteChange}/>
-      {route === "signin" ? (
-        <Signin onRouteChange={onRouteChange}/>
-      ) : (
+      <Navigation onRouteChange={onRouteChange} />
+      {route === "home" ? (
         <div>
           <Rank />
           <ImageLinkForm
@@ -91,6 +89,10 @@ function App() {
           />
           <FaceRecognition box={box} imageUrl={imageUrl} />
         </div>
+      ) : route === "signin" ? (
+        <Signin onRouteChange={onRouteChange} />
+      ) : (
+        <Register onRouteChange={onRouteChange}/>
       )}
 
       {/* <div className={styles.container}>
