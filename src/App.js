@@ -9,6 +9,7 @@ import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
+import Logo from './components/Logo/Logo';
 
 const app = new Clarifai.App({
   apiKey: "3583290e1d7e48b2b57f54497ebc2848",
@@ -31,6 +32,7 @@ function App() {
   const [imageUrl, setImageUrl] = useState("");
   const [box, setBox] = useState({});
   const [route, setRoute] = useState("signin");
+  const [isSignedIn , setIsSignedIn] = useState(false)
 
   const onInputChange = (event) => {
     setInput(event.target.value);
@@ -71,6 +73,11 @@ function App() {
   };
 
   const onRouteChange = (route) => {
+    if(route === 'signout') {
+      setIsSignedIn(false)
+    } else if(route === 'home') {
+      setIsSignedIn(true)
+    }
     setRoute(route);
   };
 
@@ -78,9 +85,10 @@ function App() {
     <div className="App">
       <Particles className="particles" params={particlesOptions} />
 
-      <Navigation onRouteChange={onRouteChange} />
+      <Navigation isSignedIn={isSignedIn} onRouteChange={onRouteChange} />
       {route === "home" ? (
         <div>
+          <Logo />
           <Rank />
           <ImageLinkForm
             onInputChange={onInputChange}
