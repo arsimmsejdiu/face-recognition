@@ -5,7 +5,7 @@ import Clarifai from "clarifai";
 import "./App.css";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import Navigation from "./components/Navigation/Navigation";
-// import Signin from './components/Signin/Signin';
+import Signin from "./components/Signin/Signin";
 // import Register from './components/Register/Register';
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
@@ -30,6 +30,7 @@ function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [box, setBox] = useState({});
+  const [route, setRoute] = useState("signin");
 
   const onInputChange = (event) => {
     setInput(event.target.value);
@@ -68,18 +69,30 @@ function App() {
       .then((response) => displayFaceBox(calculateFaceLocation(response)))
       .catch((err) => console.log(err));
   };
+
+  const onRouteChange = (route) => {
+    setRoute(route);
+  }
+
   return (
     <div className="App">
       <Particles className="particles" params={particlesOptions} />
 
-      <Navigation />
-      <Rank />
-      <ImageLinkForm
-        onInputChange={onInputChange}
-        reset={reset}
-        onSubmit={onSubmit}
-      />
-      <FaceRecognition box={box} imageUrl={imageUrl} />
+      <Navigation onRouteChange={onRouteChange}/>
+      {route === "signin" ? (
+        <Signin onRouteChange={onRouteChange}/>
+      ) : (
+        <div>
+          <Rank />
+          <ImageLinkForm
+            onInputChange={onInputChange}
+            reset={reset}
+            onSubmit={onSubmit}
+          />
+          <FaceRecognition box={box} imageUrl={imageUrl} />
+        </div>
+      )}
+
       {/* <div className={styles.container}>
   <Footer />
 </div> 
