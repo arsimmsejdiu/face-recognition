@@ -21,11 +21,11 @@ const particlesOptions = {
       value: 100,
       density: {
         enable: true,
-        value_area: 800,
-      },
-    },
-  },
-};
+        value_area: 600
+      }
+    }
+  }
+}
 
 function App() {
   const [input, setInput] = useState("");
