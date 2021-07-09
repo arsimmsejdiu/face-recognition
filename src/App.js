@@ -106,7 +106,7 @@ function App() {
       {/* <div className={styles.container}>
   <Footer />
 </div> 
-  23, vid 4
+  23mins, vid 7
 */}
     </div>
   );
