@@ -32,7 +32,7 @@ function App() {
   const [imageUrl, setImageUrl] = useState("");
   const [box, setBox] = useState({});
   const [route, setRoute] = useState("signin");
-  const [isSignedIn , setIsSignedIn] = useState(false)
+  const [isSignedIn , setIsSignedIn] = useState(false);
 
   const onInputChange = (event) => {
     setInput(event.target.value);
