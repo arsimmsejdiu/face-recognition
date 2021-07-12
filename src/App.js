@@ -9,7 +9,7 @@ import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
-import Logo from './components/Logo/Logo';
+import Logo from "./components/Logo/Logo";
 
 const app = new Clarifai.App({
   apiKey: "3583290e1d7e48b2b57f54497ebc2848",
@@ -21,18 +21,38 @@ const particlesOptions = {
       value: 100,
       density: {
         enable: true,
-        value_area: 900
-      }
-    }
-  }
-}
+        value_area: 900,
+      },
+    },
+  },
+};
 
 function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [box, setBox] = useState({});
   const [route, setRoute] = useState("signin");
-  const [isSignedIn , setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [user, setUser] = useState({
+    id: "",
+    name: "",
+    email: "",
+    entries: 0,
+    joined: "",
+  });
+
+  const loadUser = (data) => {
+    setUser({
+      ...user,
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined,
+      },
+    });
+  };
 
   const onInputChange = (event) => {
     setInput(event.target.value);
@@ -73,10 +93,10 @@ function App() {
   };
 
   const onRouteChange = (route) => {
-    if(route === 'signout') {
-      setIsSignedIn(false)
-    } else if(route === 'home') {
-      setIsSignedIn(true)
+    if (route === "signout") {
+      setIsSignedIn(false);
+    } else if (route === "home") {
+      setIsSignedIn(true);
     }
     setRoute(route);
   };
@@ -100,7 +120,7 @@ function App() {
       ) : route === "signin" ? (
         <Signin onRouteChange={onRouteChange} />
       ) : (
-        <Register onRouteChange={onRouteChange}/>
+        <Register loadUser={loadUser} onRouteChange={onRouteChange} />
       )}
 
       {/* <div className={styles.container}>

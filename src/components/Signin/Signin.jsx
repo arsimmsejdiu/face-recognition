@@ -4,12 +4,6 @@ const Signin = ({ onRouteChange }) => {
   const [signInEmail, setSignInEmail] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
 
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/")
-  //     .then((response) => response.json())
-  //     .then(console.log);
-  // }, []);
-
   const onEmailChange = (event) => {
     setSignInEmail(event.target.value);
   };
@@ -22,20 +16,19 @@ const Signin = ({ onRouteChange }) => {
     // console.log("Your Email is: ", signInEmail);
     // console.log("Your Password is: ", signInPassword);
     fetch("http://localhost:5000/signin", {
-      method: 'POST',
-      headers: {'Content-type': 'application/json'},
+      method: "POST",
+      headers: { "Content-type": "application/json" },
       body: JSON.stringify({
         email: signInEmail,
-        password: signInPassword
-      })
+        password: signInPassword,
+      }),
     })
       .then((response) => response.json())
-      .then(data => {
-        if(data === 'Successfully'){
+      .then((data) => {
+        if (data === "Successfully") {
           onRouteChange("home");
         }
       });
-    
   };
 
   return (
