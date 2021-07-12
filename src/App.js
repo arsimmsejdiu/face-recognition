@@ -81,9 +81,10 @@ class App extends Component {
   };
 
   onButtonSubmit = () => {
-    this.setState({ imageUrl: this.state.input });
+    const {input , user} = this.state;
+    this.setState({ imageUrl: input });
     app.models
-      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+      .predict(Clarifai.FACE_DETECT_MODEL, input)
       .then((response) => {
         console.log("hi", response);
         if (response) {
@@ -91,12 +92,12 @@ class App extends Component {
             method: "put",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              id: this.state.user.id,
+              id: user.id,
             }),
           })
             .then((response) => response.json())
             .then((count) => {
-              this.setState(Object.assign(this.state.user, { entries: count }));
+              this.setState(Object.assign(user, { entries: count }));
             });
         }
         this.displayFaceBox(this.calculateFaceLocation(response));

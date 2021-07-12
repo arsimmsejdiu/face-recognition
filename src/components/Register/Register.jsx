@@ -21,8 +21,6 @@ const Register = ({ onRouteChange, loadUser }) => {
     console.log("Your Name is: ", name);
     console.log("Your email is: ", email);
     console.log("Your password is: ", password);
-    onRouteChange("home");
-
     fetch("http://localhost:5000/register", {
       method: "POST",
       headers: { "Content-type": "application/json" },
